@@ -3,38 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Statistic;
-
-use App\Models\SuratDomisili;
-use App\Models\SuratUsaha;
-use App\Models\SuratTidakMampu;
-use App\Models\SuratKelahiran;
-use App\Models\Pengaduan;
 
 class StatistikController extends Controller
 {
     public function index()
     {
         // ======================
-        // DATA STATISTIK UTAMA
+        // DATA STATISTIK SEMENTARA
+        // (tanpa database)
         // ======================
-        $penduduk = Statistic::where('key', 'penduduk')->first();
-        $rt = Statistic::where('key', 'rt')->first();
-        $rw = Statistic::where('key', 'rw')->first();
+
+        $penduduk = (object)[
+            'value' => 0
+        ];
+
+        $rt = (object)[
+            'value' => 0
+        ];
+
+        $rw = (object)[
+            'value' => 0
+        ];
 
         // ======================
-        // SURAT MASUK (TOTAL)
+        // TOTAL SURAT MASUK
         // ======================
-        $suratMasuk =
-            SuratDomisili::count() +
-            SuratUsaha::count() +
-            SuratTidakMampu::count() +
-            SuratKelahiran::count();
+        $suratMasuk = 0;
 
         // ======================
-        // PENGADUAN
+        // TOTAL PENGADUAN
         // ======================
-        $pengaduan = Pengaduan::count();
+        $pengaduan = 0;
 
         // ======================
         // RETURN VIEW
