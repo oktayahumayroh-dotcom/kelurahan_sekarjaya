@@ -19,11 +19,12 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale('id'); // ✅ tetap
 
         // 🔔 NOTIF GLOBAL
-        View::composer('*', function ($view) {
-            $notifs = Notifikasi::latest()->take(10)->get();
-            $unread = Notifikasi::where('is_read', 0)->count();
+// 🔔 NOTIF GLOBAL (sementara tanpa database)
+View::composer('*', function ($view) {
+    $notifs = collect();
+    $unread = 0;
 
-            $view->with(compact('notifs', 'unread'));
-        });
+    $view->with(compact('notifs', 'unread'));
+});
     }
 }
