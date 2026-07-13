@@ -3,31 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Statistic;
-use App\Models\Berita;
-
-// 🔥 TAMBAHAN
-use App\Models\SuratDomisili;
-use App\Models\SuratUsaha;
-use App\Models\SuratTidakMampu;
-use App\Models\SuratKelahiran;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // 🔥 SAMAIN PERSIS
-        $penduduk = Statistic::where('key', 'penduduk')->first();
-        $rt = Statistic::where('key', 'rt')->first();
-        $rw = Statistic::where('key', 'rw')->first();
+        // sementara tanpa database
+        $penduduk = (object)[
+            'value' => '0'
+        ];
 
-        $suratMasuk =
-            SuratDomisili::count() +
-            SuratUsaha::count() +
-            SuratTidakMampu::count() +
-            SuratKelahiran::count();
+        $rt = (object)[
+            'value' => '0'
+        ];
 
-        $berita = Berita::latest()->get();
+        $rw = (object)[
+            'value' => '0'
+        ];
+
+        $suratMasuk = 0;
+
+        $berita = [];
 
         return view('beranda', compact(
             'penduduk',
